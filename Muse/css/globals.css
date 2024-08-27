@@ -1,0 +1,17 @@
+@font-face {
+    font-family: poppins;
+    src: url(../static/fonts/Poppins-Regular.ttf);
+}
+html{font-family: poppins;}
+.mp-0{
+    margin: 0; padding: 0;
+} 
+.flex-row{display: flex; flex-direction: row;}.flex-col{display: flex; flex-direction: column;}
+.text-white{color: white;}
+.flex-centered{align-items: center; justify-content: center;}
+.items-center{align-items: center;}
+.justify-center{justify-content: center;}
+.text-3{font-size: 15px;}
+.mt-24{margin-top: 24px;}
+.button{font-family: poppins;}
+button:hover{cursor: pointer;}

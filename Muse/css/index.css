@@ -1,0 +1,187 @@
+:root{
+    --midnight-pink : #4E2C4B;
+    --bubble-gum : #E587DC;
+    --black : #000000;
+}
+body{
+    background: #000;
+}
+/*Main Navbar*/
+.nav-bar{
+    width: 100%; height: 60px; position: fixed;
+    background-image: linear-gradient(to bottom, var(--midnight-pink), var(--black));
+    justify-content: space-between;
+}
+.main-logo{
+    width: auto; height: auto; color: var(--bubble-gum);
+    font-size: 24px; text-decoration: none; margin-left: 3%;
+}
+.search-div {
+    width: 30%; height: 25px; background-color: white;
+    display: flex; flex-direction: row; align-items: center;
+    border-radius: 8px; position: relative;  overflow: hidden; 
+}
+.search-div:focus-within::before {  
+    content: ''; position: absolute; top: 0;
+    left: 0; width: 100%; height: 100%;
+    border-radius: 8px; border: 2px solid var(--midnight-pink); box-sizing: border-box;
+    animation: animate-border 1.2s linear infinite;
+}
+@keyframes animate-border {
+    0% {clip-path: polygon(0 0, 0% 0, 0% 0, 0 0);}
+    25% { clip-path: polygon(0 0, 100% 0, 100% 0, 0 0);}
+    50% {clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%)}
+    75% { clip-path: polygon(0 0, 0 100%, 100% 100%, 100% 0);}
+    100% {clip-path: polygon(0 0, 0 100%, 0 100%, 0 0);}
+}
+
+.search-input{
+    width: 93%; height: 100%; border-radius: 8px; background-color: white;
+    border: none
+}
+.search-input:focus{outline: none;box-shadow: none;}
+.account-btn{width: 40px; height: 40px; border-radius: 50%; background-color: transparent;
+    margin-right: 30px; padding: 0;}
+.account-btn:active{border: var(--bubble-gum) double 3px;}
+.account-img{width: 100%; height: 100%; object-fit: contain;}
+
+/*Body*/
+.main-content{margin-top: 60px;}
+.side-nav{position: absolute;}
+.side-nav.active{position: relative;}
+@media(max-width:600px){.side-nav.active{position:absolute ;}}
+.menu-btn{width: 50px; height: 45px;
+        border-radius: 0px 15px 0px 0px; border-color: var(--bubble-gum);
+        background-color: black;}
+        
+.menu-img{ width: 20px; height: 20px;}
+.menu-div{
+    width: 150px; height: 450px; border: var(--bubble-gum) solid 1px;
+    background: linear-gradient(180deg, black, black 60%,var(--midnight-pink) 100%);
+    background-size: 100% 200%;
+    animation: moveGradient 3s ease infinite;
+
+
+    transition: left 0.3s ease; 
+    position: relative;
+    left: -250px;
+}
+.menu-div.active {
+    left: 0; /* Slide into view */
+}
+
+@keyframes moveGradient {
+    0% {background-position: 0% 0%;}50% { background-position: 0% 50%}100% {background-position: 0% 100%;}
+}
+
+.menu-link{ font-family: poppins;
+    width: 90%; font-size: 16px; padding: 0; height: 50px;
+    background-color: transparent; border: none; border-radius: 15px;
+}
+.menu-link:hover{ background-color: white; color: black;}
+.menu-link:active{ background-color: var(--midnight-pink); color: white;}
+
+.playlist-header{
+    width: 100%; text-align: center; height: 30px;
+    border-width: 1px 0px 1px 0px; border-style: solid; border-color: white;
+}
+
+
+.account-box.active {
+    top: 60px; 
+}
+.account-box {  
+    width: 250px; height: auto; background-color: black;
+    position: absolute; top: -350px; right: 30px;
+    transition: top 0.3s ease; padding: 20px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px; border: 1px solid var(--bubble-gum);
+}
+
+/* User Image */
+.user-img {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    display: block;
+    margin: 0 auto 20px auto;
+}
+
+/* Login Form */
+.login-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Input Fields */
+.login-input {
+    width: 90%;
+    padding: 10px;
+    margin-bottom: 5px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px;
+}
+
+/* Error Text */
+.error-text {
+    color: #ff4d4d;
+    font-size: 12px;
+    margin-bottom: 10px;
+    display: none;
+    padding: 5px;
+    border-left: 3px solid var(--midnight-pink);
+    background-color: #ffe6e6;
+    border-radius: 4px;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    opacity: 0;
+    transform: translateY(-10px);
+}
+
+.error-text.show {
+    display: block;
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Hover effect for error text */
+.error-text:hover {
+    background-color: #ffcccc;
+    border-left-color: #ff1a1a;
+}
+
+/* Login Button */
+.login-btn {
+    width: 98%;
+    padding: 10px;
+    background-color: var(--bubble-gum);
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.login-btn:hover {
+    background-color: #6e506b;
+}
+
+/* Signup Link */
+.signup-link {
+    display: block;
+    text-align: center;
+    margin-top: 15px;
+    font-size: 14px;
+    color: var(--midnight-pink);
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.signup-link:hover {
+    color: #E587DC;
+}
+.login-text{
+    font-size: 15px;
+    paddin
+}
