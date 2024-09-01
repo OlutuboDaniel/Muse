@@ -1,0 +1,50 @@
+<div  id="nav-bar" class="flex-row">
+    <button class="menu-btn"><img class="menu-img" src="static/images/menu-icon.png" alt=""></button>
+    <a href="home.html" class="muse-logo">Muse</a>
+    <div class="search-div flex-row"><input type="search" name="" placeholder="search" id="search-bar">
+    <button class="search-btn"><img class="search-img" src="static/images/search-icon.png" alt=""></button></div>
+    <div><img src="" alt=""></div>
+    <button class="account-btn loading-skeleton" id="account-btn" onclick="revealLogin()"></button>        
+</div>
+
+<style>
+#nav-bar{
+    width: 100%; height: 60px; background-image: linear-gradient(to bottom, #4E2C4B, black);
+    justify-content: space-between; align-items: center;
+}    
+.menu-btn{width: 33px; height: 20px; display: flex; align-items: center; justify-content: center;
+    background-color: transparent; border: none;
+}
+.menu-img{width: 100%; height: 100%;}
+.muse-logo{
+    font-size: 20px; color: #E587DC; margin-right: 15%;
+    text-decoration: none; font-weight: bold; 
+}
+.search-div{
+    width: 40%; height: 30px; background-color: white; display: flex;
+    border-radius: 8px; align-items: center; 
+}
+#search-bar{
+    width: 93%; height: 80%; border-radius: 8px; background-color: transparent;
+    border: none; font-family: poppins; display: flex; 
+}
+.search-btn{border: none; background-color: transparent; width: 18px; height: 18px;
+    display: flex; align-items: center; justify-content: center; padding: 0;
+}
+.search-img{width: 100%; height: 100%;}
+#search-bar:focus{outline: none;}
+
+.account-btn{ width: 30px; height: 30px; margin-right: 3%;
+    background-color: transparent; border: none; border-radius: 50%;
+    margin-right: 2%; padding: 0; display: flex; align-items: center; justify-content: center;
+}
+.account-btn.logged{background-color: #e587dc; color: white; font-size: 15px; }
+.account-placeholder{width: 100%; height: 100%;}
+.account-btn:active{border: 3px double #E587DC;}
+
+/* Media Query for the Top Navbar */
+@media(max-width:600px){
+    .search-div{display: none; }
+    .muse-logo{margin: 0;}
+}
+</style>

@@ -1,0 +1,52 @@
+.full-page{
+    width: 100%; height: 100vh; background-image: url(../static/images/creator-bg.jpg);
+    background-size: cover;
+}
+.window-filter{
+    width: 100%; height: 100%; background-color: #380b34; opacity: 0.95;
+}
+.page-content{
+    width: 70%; height: 500px; background-color: black; border-radius: 15px;
+    border-width: 3px 0px 0px 0px; border-style: solid; border-color:#e587dc ;
+    display: flex;justify-content: center; align-items: center;
+}
+/* @media(max-width:650px){
+    .page-content{width: 300px;}
+} */
+
+.controls{height: 10%; width: 96%; justify-content: space-between;  }
+.controls button{background-color: transparent; border: none;}
+.controls a{text-decoration: none; color: #7b1873; width: auto; height: auto; font-size: 11px; margin-top: 10px;}
+.slides{
+    width: 80%; height: 90%; display: flex; flex-direction: column; align-items: center;
+    gap: 20px; justify-content: center;
+}
+.main-button{
+    background-color: #380b34; width: 170px; height: 60px; border-radius: 12px; color: white;
+    border: 1px #e587dc solid;
+}
+.slides h1, .slides h5{text-align: center;}
+.main-button:hover{background-color: #e587dc;}
+.main-button:active{border: 3px double #380b34; background-color: #e587dc;}
+.page-number{width: 100%; text-align: start; font-size: 11px;}
+.secondPage input{width: 300px; height: 30px; border-radius: 11px;}
+.secondPage input:focus{outline-color: #7b1873;}
+.thirdPage input{display: none;}
+.thirdPage label{
+    width: 200px; height: 40px; background-color: #fff; color: black;
+    display: flex; align-items: center; justify-content: center; border-radius: 13px;
+    outline: 2px white solid; border: 3px solid black;
+}
+.thirdPage label:hover{outline-color: #7b1873; cursor: pointer;}
+.thirdPage div{ width: 120px; height: 120px; background-color: gray; border-radius: 50%;}
+.error-message{
+    width: 70%; text-align: center; font-size: 15px; background-color: white; color: black;
+    border-width: 0px 0px 0px 7px; border-color: #7b1873; border-style: solid; display: none;
+}
+
+.firstPage{display: flex;}.secondPage{display: none;}.thirdPage{display: none; gap: 0px;}.lastPage{display: none;}
+
+
+
+
+

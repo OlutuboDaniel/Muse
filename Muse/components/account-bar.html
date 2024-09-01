@@ -1,0 +1,83 @@
+<div id="loading-bg">
+    <div class="loading-circle"></div>
+</div>
+
+<div class="account-window" id="accountWindow">
+    <div id="anon-window" class="flex-col">
+        <h3 class="text-white">Login</h3>
+        <label class="text-white" for="email">Email</label>
+        <input type="text" id="email" class="login-input">
+        <label class="text-white" id="password-label" for="password">Password</label>
+        <div class="flex-row pw-div items-center">
+            <input type="password" id="password">
+            <img id="display-icon" onclick="revealPassword('display-icon', 'password')" src="static/svg/eye-solid.svg" alt="">
+        </div>
+        <p id="login-error">Enter a valid username and/or password</p>
+        <button class="submit-btn" onclick="login()">Submit</button>
+        <a href="register.html" class="register-link">You don't have an account mf</a>
+    </div>
+    <div id="user-window" >
+        <div class="user-information">
+            <h1 id="displayUsername">Placeholder</h1>
+            <h1 id="displayEmail">placeholder@gmail.com</h1>
+        </div>
+        <button><i class="fa-solid fa-clock-rotate-left" style="color: #e587dc;"></i>History</button>
+        <button onclick="creatorRegister()"><i class="fa-solid fa-circle-plus" style="color: #e587dc;"></i>Become A Creator</button>
+        <button onclick="logout()"><i class="fa-solid fa-door-open" style="color: #e587dc;"></i>Sign Out</button>
+        
+    </div>
+</div>
+
+
+
+
+<style>
+
+.account-window{
+    width: 270px; height: auto; background-color: black; border-radius: 15px;
+    border: 1px solid #E587DC;
+    position: absolute; top: -400px; right: 0; transition: top 0.3s ease;
+}
+#anon-window h3{
+    font-size: 20px;
+}
+.account-window.active{
+    top: 60px;
+}
+#anon-window label{width: 90%; height: auto; text-align: start; font-size: 12px;}
+.login-input{
+    width: 90%; height: 20px; margin: 10px 0 10px 0; border-radius: 4px;
+    border: none;
+}
+.login-input:focus{outline: none;}
+.submit-btn{
+    height: 40px; width: 90px; border-radius: 8px; background-color: #E587DC; color: black;
+    border: none; margin-left: 50%; margin-top: 20px;
+}
+.submit-btn:hover{border: 2px double black;}
+.submit-btn:active{background-color: #4E2C4B; color: white;}
+#login-error{color: black; background-color: white; font-size: 12px; border-width: 2px 2px 2px 4px;
+    border-color:#8d4d87; border-style: solid; padding: 3px; display: none;}
+.register-link{
+    font-size: 12px; margin: 10px 0 10px 0;
+}
+.register-link{color: #E587DC;}
+.register-link:active{color: #4E2C4B;}
+.pw-div{background-color: white; width: 92%; border-radius: 4px;}
+#password{width: 90%;border-radius: 7px; border: none;}
+#password:focus{outline: none;}
+#display-icon{width: 18px; height: 18px ;}
+
+#anon-window{width: 100%; height: 100%; justify-content: center; align-items: center; }
+#user-window{width: 100%; height: 100%; display: none; flex-direction: column;
+    align-items: center; gap: 5px; padding: 20px 0px 20px 0px;
+}
+#user-window button{
+    width: 90%; height: 48px; display: flex; flex-direction: row; justify-content: space-between;
+    border-radius: 10px; align-items: center; padding: 0px 5% 0px 5%;
+}
+.user-information{ width: 100%; display: flex; flex-direction: column; align-items: center;}
+.user-information h1{font-size: 16px; width: 80%; text-align: start; color: white;}
+
+
+</style>
