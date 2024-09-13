@@ -7,13 +7,120 @@
     <script src="https://www.gstatic.com/firebasejs/9.1.3/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.1.3/firebase-auth-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.1.3/firebase-firestore-compat.js"></script>
-    <script src="js/firebase.js" defer></script>
+    <script src="js/firebase.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet" href="css/global.css">
     <link rel="stylesheet" href="css/home.css">  
 </head>
 <body>
+    <div class="add-playlist-bg search-bg" id="addPlaylistBg">
+        <div class="add-playlist-div">
+            <i onclick="hidePlaylistAdd()" class="fa-solid fa-xmark playlist-cancel" style="color: #e587dc;"></i>
+            <h3>Add to Playlist</h3>
+            <div id="addPlayList"><input id="newPlaylist" type="text"><button><i onclick="saveNewPlaylist()" id="newPlaylistSubmit" class="fa-solid fa-check" style="color: #000000;"></i></button><button onclick="showPlaylistInputBar()"><i class="fa-solid fa-plus" style="color: #000000;"></i></button></div>
+            <div id="playlistList">
 
-    <script src="js/home.js" defer></script>
+            </div>
+        </div>
+    </div>
+    <div class="search-bg" id="searchBg">
+        <div class="search-div">
+            <div class="cancel-div">
+                <i onclick="showSearchScreen()" class="fa-solid fa-xmark" style="color: #e587dc;"></i>
+            </div>
+            <input type="text" id="searchInput" placeholder="Search On Muse">
+            <div class="search-results">
+                <div id="search-skeleton" class="search-skeleton">
+                    <div class="sk-1 loading-skeleton"><div class="sk-2 "></div></div>
+                    <div class="sk-1 loading-skeleton"><div class="sk-2 "></div></div>
+                </div>
+                <div id="results"></div>
+            </div>
+        </div>
+    </div>
+    <div class="main">
+        <div class="side-Nav" id="sideNav">
+            <button onclick="hidePlaylistPage()"><i class="fa-solid fa-house" style="color: #e587dc;"></i>Home</button>
+            <button onclick="showSearchScreen();showSideNav();"><i class="fa-solid fa-magnifying-glass" style="color: #e587dc;"></i>Search</button>
+            <h3>Playlists</h3>
+            <div id="playlistDisplay"></div>
+        </div>
+        <div id="mainPage">
+            <div class="songs-display" id="songDisplay">
+                <div class="songs-display" id="songDisplay">
+                    <div class="classical-music">
+                        <h3 style="font-weight: 100;">MOST RECENT RELEASES</h1>
+                        <div id="recentMusic" class="arrange">
+    
+                        </div>
+                    </div>
+                    <div class="classical-music">
+                        <h3 style="font-weight: 100;">DISCOVER CLASSICAL MUSIC</h1>
+                        <div id="classicalMusic" class="arrange">
+    
+                        </div>
+                    </div>
+                    <div class="classical-music">
+                        <h3 style="font-weight: 100;">DISCOVER ELECTRONIC MUSIC</h1>
+                        <div id="electronicMusic" class="arrange">
+    
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="artist-page" id="artistPage">
+                <i onclick="hideArtistPage()" class="fa-solid fa-xmark fa-xl artist-cancel" style="color: #e587dc;"></i>
+                <div class="artist-skeleton" id="artistSkeleton">
+                    <div class="artist-skel-pic loading-skeleton"></div>
+                    <div class="artist-skel-name loading-skeleton"></div>
+                    <div class="artist-skel-about loading-skeleton"></div>
+                    <div class="artist-skel-list">
+                        <div class="artist-skel-song loading-skeleton"></div>
+                        <div class="artist-skel-song loading-skeleton"></div>
+                        <div class="artist-skel-song loading-skeleton"></div>
+                    </div>
+                </div>
+                <div class="artist-loaded" id="artistLoaded">
+                    <img id="pageArtistPic" class="artist-skel-pic" src="" alt="">
+                    <h3 id="pageArtistName"></h3>
+                    <h5 id="pageArtistAbout"></h5>
+                    <div id="pageArtistList" class="artist-skel-list">
+                    </div>
+                </div>
+            </div>
+            <div class="artist-page playlist-page" id="playlistPage">
+                <h1 id="playlistName"></h1>
+                <div class="playlistSongsDisplay" id="pagePlaylist"></div>
+            </div>
+            <div class="music-player-div">
+                <audio id="audio" src=""></audio>
+                <div class="progress-container">
+                    <div id="progressBar"></div>
+                    <div id="bufferBar"></div>
+                    <input value="0" max="100" type="range" id="seekBar">
+                </div>
+                <div class="player-content">
+                    <div class="music-info">
+                        <img id="songCover" src="" alt="">
+                        <div class="music-info-text">
+                            <h5 id="songTitle">------</h5>
+                            <h6 id="songArtist">---</h6>
+                        </div>
+                    </div>
+                    <div class="music-controls">
+                        <i onclick="nextSong()" class="fa-solid fa-backward-step fa-lg" style="color: #e587dc;"></i>
+                        <i id="playButton" class="fa-solid fa-pause fa-2xl" style="color: #e587dc;"></i>
+                        <i onclick="previousSong()" class="fa-solid fa-forward-step fa-lg" style="color: #e587dc;"></i>
+                    </div>
+                    <div class="music-controls">
+                        <i onclick="showPlaylistAdd()" class="fa-solid fa-layer-group fa-xl" style="color: white;"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script src="js/home.js"></script>
+    <script src="js/audio.js"></script>
 </body>
 </html>

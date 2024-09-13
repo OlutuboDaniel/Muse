@@ -27,7 +27,7 @@ const firebaseConfig = {
     messagingSenderId: "77094058300",
     appId: "1:77094058300:web:c59cec4fbe15cc8036c639",
     measurementId: "G-KQZ3M70LGY"
-  };
+};
 
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
@@ -36,8 +36,7 @@ const db = firebase.firestore();
 
 firebase.auth().setPersistence(firebase.auth.Auth.Persistence.LOCAL)
     .then(() => {
-        // Persistence set to LOCAL (default)
-        // This means the user will stay logged in across sessions
+        
     })
     .catch((error) => {
         console.error("Error setting persistence:", error);
@@ -108,39 +107,62 @@ function login() {
 // To Load User Profile Picture
 function loadUserProfile() {
     auth.onAuthStateChanged((user) => {
-        const placeholder = document.querySelector('account-placeholder')
-        const accountBtn = document.getElementById('account-btn')
-
+        const placeholder = document.querySelector('.account-placeholder');
+        const accountBtn = document.getElementById('account-btn');
 
         if (user) {
-            // User is signed in
-            const AnonWindow = document.getElementById('anon-window')
-            const UserWindow = document.getElementById('user-window')
-            const displayUsername = document.getElementById('displayUsername')
-            const displayEmail = document.getElementById('displayEmail')
+            const registerCreatorBtn = document.getElementById('registerCreatorBtn');
+            const AnonWindow = document.getElementById('anon-window');
+            const UserWindow = document.getElementById('user-window');
+            const displayUsername = document.getElementById('displayUsername');
+            const displayEmail = document.getElementById('displayEmail');
             const userEmail = auth.currentUser.email;
             const userId = user.uid;
 
             // Fetch the user's data from Firestore
             db.collection('users').doc(userId).get().then((doc) => {
                 if (doc.exists) {
-                    const username = doc.data().username;
-                    // Display the first letter of the username
-                    const firstLetter = username.charAt(0).toUpperCase();
-                    displayUsername.innerText = username
-                    displayEmail.innerText = userEmail
-                    accountBtn.innerText = firstLetter;
-                    accountBtn.classList.remove('loading-skeleton')
-                    accountBtn.classList.add('logged')
-                    AnonWindow.style.display ='none'
-                    UserWindow.style.display ='flex'
+                    const userData = doc.data();
+                    const creatorStatus = userData.creatorStatus;
+                    const username = creatorStatus ? userData.creatorName : userData.username;
+                    const profilePictureURL = userData.profilePictureURL;
+                    //Change Creator Button
+                    if(creatorStatus){
+                        registerCreatorBtn.innerHTML ='<i class="fa-solid fa-circle-plus" style="color: #e587dc;"></i>Creator Controls'
+                    }
+                    // Update UI based on creator status
+                    displayUsername.innerText = username;
+                    displayEmail.innerText = userEmail;
+
+                    if (profilePictureURL) {
+                        // Show profile picture if available
+                        accountBtn.innerHTML = `<img class="profile-picture" src="${profilePictureURL}" alt="Profile Picture">`;
+                    } else {
+                        const username = doc.data().username;
+                        // Display the first letter of the username
+                        const firstLetter = username.charAt(0).toUpperCase();
+                        displayUsername.innerText = username
+                        displayEmail.innerText = userEmail
+                        accountBtn.innerText = firstLetter;
+                        accountBtn.classList.remove('loading-skeleton')
+                        accountBtn.classList.add('logged')
+                        AnonWindow.style.display ='none'
+                        UserWindow.style.display ='flex'
+
+                    }
+
+                    // Update account button and window displays
+                    accountBtn.classList.remove('loading-skeleton');
+                    accountBtn.classList.add('logged');
+                    AnonWindow.style.display = 'none';
+                    UserWindow.style.display = 'flex';
                 } else {
                     console.log("No such document!");
-                    accountBtn.textContent = '?';
+                    accountBtn.innerHTML = '<img class="account-placeholder" src="static/images/account-placeholder.png" alt="">';
                 }
             }).catch((error) => {
                 console.error("Error getting document:", error);
-                accountBtn.innerText = '?'; // Fallback on error
+                accountBtn.innerHTML = '<img class="account-placeholder" src="static/images/account-placeholder.png" alt="">'; // Fallback on error
             });
         } else {
             // No user is signed in, show placeholder image
@@ -176,6 +198,36 @@ function logout() {
 }
 
 //Function for Become a Creator Button
-function creatorRegister(){
-    window.location.href = "../register-creator.html";
+function creatorRegister() {
+    auth.onAuthStateChanged((user) => {
+        if (user) {
+            const userId = user.uid;
+            db.collection('users').doc(userId).get().then((doc) => {
+                if (doc.exists) {
+                    const userData = doc.data();
+                    const creatorStatus = userData.creatorStatus;
+                    
+                    if (creatorStatus) {
+                        // If creatorStatus is true, redirect to creator controls
+                        window.location.href = "../creator-controls.html";
+                    } else {
+                        // If creatorStatus is false, redirect to creator registration
+                        window.location.href = "../register-creator.html";
+                    }
+                } else {
+                    console.log("No such document!");
+                    // If the user document does not exist, redirect to registration
+                    window.location.href = "../register-creator.html";
+                }
+            }).catch((error) => {
+                console.error("Error getting document:", error);
+                // In case of error, redirect to registration
+                window.location.href = "../register-creator.html";
+            });
+        } else {
+            // If no user is logged in, redirect to registration
+            window.location.href = "../register-creator.html";
+        }
+    });
 }
+

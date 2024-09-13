@@ -1,6 +1,6 @@
 @font-face {font-family: poppins;src: url(../static/fonts/Poppins-Regular.ttf);
 }
-body,html{margin: 0; padding: 0; font-family: poppins; background-color: black;}
+body,html{margin: 0; padding: 0; font-family: poppins; background-color: black; }
 button{font-family: poppins;}
 button:hover{cursor: pointer;}
 input{font-family: poppins; font-weight: lighter;}
@@ -57,7 +57,28 @@ input{font-family: poppins; font-weight: lighter;}
 
 
 
-
+/* Customize the width of the scrollbar */
+::-webkit-scrollbar {
+    width: 2px; /* Adjust the width to make it slim */
+    height: 3px; /* This is for horizontal scrollbars */
+  }
+  
+  /* Customize the track (background of the scrollbar) */
+  ::-webkit-scrollbar-track {
+    background: #fff; /* You can change this to any color */
+    border-radius: 10px; /* Adds rounded corners to the track */
+  }
+  
+  /* Customize the scrollbar thumb (the draggable part of the scrollbar) */
+  ::-webkit-scrollbar-thumb {
+    background: #793a74; /* Scrollbar color */
+    border-radius: 10px; /* Adds rounded corners to the thumb */
+  }
+  
+  /* Hover effect for the thumb */
+  ::-webkit-scrollbar-thumb:hover {
+    background: #e587dc; /* Darker on hover */
+  }
 
 
 

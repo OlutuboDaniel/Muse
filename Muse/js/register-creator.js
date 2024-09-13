@@ -6,36 +6,77 @@ const firebaseConfig = {
     messagingSenderId: "77094058300",
     appId: "1:77094058300:web:c59cec4fbe15cc8036c639",
     measurementId: "G-KQZ3M70LGY"
-  };
+};
 
-
-
-// Initialize Firebase
 firebase.initializeApp(firebaseConfig);
+
 const auth = firebase.auth();
 const db = firebase.firestore();
 const storage = firebase.storage();
 
-auth.setPersistence(firebase.auth.Auth.Persistence.LOCAL)
-    .then(() => {
-    })
-    .catch((error) => {
-        console.error("Error setting persistence:", error);
-    });
+auth.setPersistence(firebase.auth.Auth.Persistence.LOCAL).catch(error => console.error("Error setting persistence:", error));
 
-//Send away forceful loggers
 document.addEventListener('DOMContentLoaded', () => {
-    firebase.auth().onAuthStateChanged((user) => {
+    auth.onAuthStateChanged(user => {
         if (!user) {
-            // If no user is signed in, redirect to the home page
             window.location.href = "../home.html";
         } else {
-            console.log("User is signed in:", user.uid);
-            // Proceed with loading the special page content
+            const userID = user.uid;
+            setupProfilePictureUpload(userID);
         }
     });
 });
 
+function setupProfilePictureUpload(userID) {
+    const MAX_FILE_SIZE_MB = 5; // Maximum file size in megabytes
+    const MAX_FILE_SIZE_BYTES = MAX_FILE_SIZE_MB * 1024 * 1024; // Convert MB to bytes
+
+    document.getElementById('fileInput').addEventListener('change', event => {
+        const file = event.target.files[0];
+        const creatorName = document.getElementById('creatorName').value.trim();
+
+        if (file) {
+            if (file.size > MAX_FILE_SIZE_BYTES) {
+                alert(`File size exceeds ${MAX_FILE_SIZE_MB} MB. Please choose a smaller file.`);
+                return; // Stop further processing
+            }
+
+            if (creatorName) {
+                showLoadScreen();
+                const profilePicRef = storage.ref(`profilePictures/${userID}.jpg`);
+                
+                profilePicRef.put(file).then(snapshot => snapshot.ref.getDownloadURL())
+                .then(downloadURL => {
+                    return db.collection('users').doc(userID).update({
+                        profilePictureURL: downloadURL,
+                        creatorStatus: true,
+                        creatorName: creatorName
+                    });
+                })
+                .then(() => {
+                    console.log('Profile updated successfully!');
+                    hideLoadScreen();
+                    nextPage();
+                })
+                .catch(error => {
+                    console.error('Error uploading profile picture:', error);
+                    hideLoadScreen();
+                });
+            } else {
+                alert('Please enter your creator name.');
+            }
+        }
+    });
+}
+
+
+function showLoadScreen() {
+    document.getElementById('loading-bg').style.visibility = 'visible';
+}
+
+function hideLoadScreen() {
+    document.getElementById('loading-bg').style.visibility = 'hidden';
+}
 
 function backClick(){
     const firstPage = document.getElementById('firstPage');
@@ -60,6 +101,7 @@ function nextPage(){
      const secondPage = document.getElementById('secondPage');
      const thirdPage = document.getElementById('thirdPage');
      const lastPage = document.getElementById('lastPage');
+     const pageLinks = document.getElementById('pageLinks')
      const firstPageDisplay = window.getComputedStyle(firstPage).display;
      const secondPageDisplay = window.getComputedStyle(secondPage).display;
      const thirdPageDisplay = window.getComputedStyle(thirdPage).display;
@@ -81,50 +123,8 @@ function nextPage(){
      }else if(thirdPageDisplay==='flex'){
          thirdPage.style.display ='none'
         lastPage.style.display = 'flex'
+        pageLinks.style.display = 'none'
      }else{
-
+        window.location.href=('../home.html')
      }
 }
-
-//Storing the Image Provided 
-const fileInput = document.getElementById('fileInput');
-const uploadProgress = document.getElementById('uploadProgress');
-const uploadStatus = document.getElementById('uploadStatus');
-
-
-
-fileInput.addEventListener('change', (event) => {
-    const creatorName = document.getElementById('creatorName').value //Get the creator name
-    const file = event.target.files[0]; // Get the selected file
-
-    if (file) {
-        // Create a storage reference
-        const storageRef = storage.ref('creatorProfiles/' + "Mix"); // Uploading to 'uploads/' folder in Firebase Storage
-
-        // Start file upload
-        const uploadTask = storageRef.put(file);
-
-        // Show the progress bar
-        uploadProgress.style.display = 'block';
-
-        // Monitor the upload progress
-        uploadTask.on('state_changed', 
-            (snapshot) => {
-                // Get the progress of the upload (as a percentage)
-                const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-                uploadProgress.value = progress; // Update the progress bar value
-                uploadStatus.innerText = `Upload is ${progress.toFixed(2)}% done`;
-            },
-            (error) => {
-                // Handle upload errors
-                console.error('Upload failed:', error);
-                uploadStatus.innerText = 'Upload failed: ' + error.message;
-            },
-            () => {
-                // Handle successful uploads
-                uploadStatus.innerText = 'Upload complete!';
-                uploadProgress.style.display = 'none'; // Hide the progress bar after completion
-            }
-        );
-    }
-});

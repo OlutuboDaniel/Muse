@@ -22,7 +22,7 @@
             <h1 id="displayEmail">placeholder@gmail.com</h1>
         </div>
         <button><i class="fa-solid fa-clock-rotate-left" style="color: #e587dc;"></i>History</button>
-        <button onclick="creatorRegister()"><i class="fa-solid fa-circle-plus" style="color: #e587dc;"></i>Become A Creator</button>
+        <button onclick="creatorRegister()" id="registerCreatorBtn"><i class="fa-solid fa-circle-plus" style="color: #e587dc;"></i>Become A Creator</button>
         <button onclick="logout()"><i class="fa-solid fa-door-open" style="color: #e587dc;"></i>Sign Out</button>
         
     </div>
@@ -35,7 +35,7 @@
 
 .account-window{
     width: 270px; height: auto; background-color: black; border-radius: 15px;
-    border: 1px solid #E587DC;
+    border: 1px solid #E587DC; z-index: 3;
     position: absolute; top: -400px; right: 0; transition: top 0.3s ease;
 }
 #anon-window h3{

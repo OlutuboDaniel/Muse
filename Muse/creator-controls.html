@@ -1,0 +1,128 @@
+<!-- This is the HTML Code: creator-controls.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Creator Controls</title>
+    <script src="https://www.gstatic.com/firebasejs/9.1.3/firebase-app-compat.js"></script>
+    <!-- Firebase Authentication -->
+    <script src="https://www.gstatic.com/firebasejs/9.1.3/firebase-auth-compat.js"></script>
+    <!-- Firebase Firestore -->
+    <script src="https://www.gstatic.com/firebasejs/9.1.3/firebase-firestore-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.1.3/firebase-storage-compat.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="css/global.css">
+    <link rel="stylesheet" href="css/creator-controls.css">
+</head>
+<body>
+    <div id="loading-bg">
+        <div class="loading-circle"></div>
+    </div>
+    
+    <div class="nav-bar flex-col">
+        <a href="home.html">MUSE</a>
+    </div>
+    
+    <div class="large-profile loading-skeleton" id="largeProfile"></div>
+    <div class="small-profile-container">
+        <div class="small-profile loading-skeleton" id="smallProfile"></div>
+    </div>
+    
+    <div class="info-container">
+        <div class="skeletons" id="skeletons">
+            <div class="name-skeleton loading-skeleton"></div>
+            <div class="about-skeleton loading-skeleton"></div>
+        </div>
+        <div class="info" id="userInfoDiv" style="display:none;">
+            <h1 id="creatorNameH1"></h1>
+            <h5 id="creatorAboutH5"></h5>
+            <div class="buttons">
+                <button onclick="showEditName()"><i class="fa-regular fa-pen-to-square" style="color: #e587dc;"></i>Edit Name</button>
+                <button onclick="showEditAbout()"><i class="fa-regular fa-pen-to-square" style="color: #e587dc;"></i>Edit About</button>
+                <button onclick="showEditPicture()"><i class="fa-regular fa-image" style="color: #e587dc;"></i>Edit Picture</button>
+            </div>
+        </div>
+    </div>
+    
+    <div class="edit-bg" id="edit-bg" style="display:none;">
+        <div class="edit-box">
+            <div class="cancel-div">
+                <i onclick="closeEdit()" class="fa-solid fa-xmark" style="color: #e587dc;"></i>
+            </div>
+            <div class="edit-name" id="editName" style="display:none;">
+                <input type="text" id="newName" placeholder="Enter your new username">
+                <p id="name-warning" style="display:none;">You cannot submit an empty input</p>
+                <button onclick="updateCreatorName()">Done</button>
+            </div>
+            <div class="edit-about" id="editAbout" style="display:none;">
+                <textarea placeholder="Who are you?" id="newAbout"></textarea>
+                <p id="about-warning" style="display:none;">You cannot submit an empty input</p>
+                <button onclick="updateCreatorAbout()">Done</button>
+            </div>
+            <div class="edit-picture" id="editPicture" style="display:none;">
+                <label for="profilePictureInput">Upload an Image</label>
+                <p id="picture-warning" style="display:none;">Your image size is too large</p>
+                <input type="file" accept=".jpg, .png" id="profilePictureInput">
+                <button onclick="updateCreatorPicture()">Done</button>
+            </div>
+        </div>
+    </div>
+    
+    <div class="demarkation">
+        <div class="demarkation-line"></div>
+    </div>
+    
+    <div class="creator-btns">
+        <button onclick="showUploadSong()"><i class="fa-solid fa-plus" style="color: #ffffff;"></i>Add Song</button>
+        <button><i class="fa-solid fa-plus" style="color: #ffffff;"></i>Add Album</button>
+        <button><i class="fa-solid fa-minus" style="color: #ffffff;"></i>Delete Song/Album</button>
+    </div>
+    
+    <div class="upload-bg" style="display:none;" id="upload-bg">
+        <div class="upload-box">
+          <div class="cancel-div">
+            <i onclick="closeUpload()" class="fa-solid fa-xmark" style="color: #e587dc;"></i>
+          </div>
+          <div class="upload-song-div">
+            <label class="song-cover-label" for="song-cover">+ <br>Add Song Cover</label>
+            <input id="song-cover" type="file" accept=".jpg, .png" onchange="previewImage(event)">
+            <img id="cover-preview" style="display:none; max-width: 100%; margin-top: 10px;"/>
+            <label class="upload-label" for="songTitle">Song Name</label>
+            <input type="text" id="songTitle">
+            <label class="upload-label" for="songYear">Release Year</label>
+            <input type="number" id="songYear">
+            <label class="upload-label">Genre</label>
+            <div class="genre-selection">
+                <div class="genre" data-value="Rock">Rock</div>
+                <div class="genre" data-value="Jazz">Jazz</div>
+                <div class="genre" data-value="Blues">Blues</div>
+                <div class="genre" data-value="Pop">Pop</div>
+                <div class="genre" data-value="Rap">Rap</div>
+                <div class="genre" data-value="Electronic">Electronic</div>
+                <div class="genre" data-value="Artcore">Artcore</div>
+                <div class="genre" data-value="Classical">Classical</div>
+            </div>
+            <label class="upload-label">Mood</label>
+            <div class="genre-selection">
+                <div class="mood" data-value="Relaxed">Relaxed</div>
+                <div class="mood" data-value="Energetic">Energetic</div>
+                <div class="mood" data-value="Happy">Happy</div>
+                <div class="mood" data-value="Melancholy">Melancholy</div>
+                <div class="mood" data-value="Calm">Calm</div>
+                <div class="mood" data-value="Party">Party</div>
+            </div>
+            <label class="upload-label" for="song-file">Upload Song</label>
+            <input id="song-file" type="file" accept=".mp3, .wav">
+            <div class="upload-status-bar">
+              <div id="upload-progress" style="background-color: #e587dc; height: 3px; width: 0%; border-radius: 3px;"></div>
+            </div>
+            <button onclick="uploadSong()" class="upload-btn">Submit</button>
+          </div>
+        </div>
+    </div>
+      
+
+    <script src="js/creator-controls.js"></script>
+</body>
+</html>

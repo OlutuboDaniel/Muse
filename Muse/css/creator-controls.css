@@ -1,0 +1,147 @@
+/* This is the css file: creator-controls.css */
+.nav-bar{
+    width: 100%; height: 40px; background-color: black;
+    justify-content: center; align-items: center; 
+}
+.nav-bar a{
+    color: #e587dc; text-decoration: none; font-size: 15px; font-weight: bolder;
+}
+.nav-bar a:hover{color: #5a1b62;}
+.large-profile{
+    width: 100%; height: 400px; display: flex; align-items: center; justify-content: center;
+    overflow: hidden; 
+}
+.large-profile img{width: 100%; height: 100%; object-fit: cover; object-position: center; filter: blur(15px);}
+.small-profile{
+    width: 200px; height: 200px; border-radius: 50%; display: flex; align-items: center; justify-content: center; overflow: hidden;
+} 
+.small-profile img{width: 100%; height: 100%; object-fit: cover; object-position: center;}
+.small-profile-container{
+    width: 100%; height: 10px; display: flex; align-items: center; justify-content: center; position: relative; top: 0;
+}
+.info-container{
+    width: 100%; height: auto; margin-top: 100px; display: flex; align-items: center; flex-direction: column;
+    color: white; gap: 20px;
+}
+.skeletons, .info{
+    width: 100%; height: 100%;  display: flex; align-items: center; flex-direction: column; gap: 20px; display: none;
+}
+.name-skeleton{
+    width: 300px; height: 20px; margin-top: 20px; border-radius: 3px;
+}
+.about-skeleton{
+    width: 80%; height: 200px; margin-bottom: 20px; border-radius: 10px;
+}
+.info h1{
+    margin: 0;
+}
+.info h5{
+    width: 80%; height: auto;  margin: 10px;border-radius: 10px; font-weight: 100;
+}
+.buttons{
+    display: flex; flex-direction: row; width: 80%; align-items: center; justify-content: center;
+    gap: 10px;
+}
+.buttons button{
+    width: 200px; height: 50px; border-radius: 8px; display: flex; flex-direction: row;
+    gap: 10px; align-items: center; justify-content: center; border: 0;
+}
+.edit-bg, .upload-bg{
+    width: 100%; height: 100vh; position: fixed; top: 0; left: 0; background-color: rgba(0, 0, 0, 0.742);
+    display: none; align-items: center; justify-content: center;
+}
+.edit-box{ width: 600px; height: 300px; background-color: white; border-radius: 12px; border-width: 5px 0px 0px 0px;
+    border-style: solid; border-color: #e587dc; display: flex; flex-direction: column; align-items: center; justify-content: center;
+} 
+.cancel-div{width: 95%; height: 10%; display: flex; justify-content: end; align-items: center;} 
+.edit-name, .edit-about, .edit-picture{width: 90%; height: 90%; display: none; align-items: center; justify-content: center; flex-direction: column; gap: 10px;}
+.edit-name input{
+    width: 70%; height: 30px; border-radius: 8px; border: 1px solid #e587dc;
+}
+.edit-name p{font-size: 14px;}
+.edit-box button{
+    width: 120px; height: 50px; border-radius: 8px; background-color: #e587dc;
+    border: none;
+}
+.edit-box button:hover{border: solid black 1px;}
+.edit-box button:active{background-color: #5a1b62; color: white;}
+.edit-about textarea{
+    min-width: 60%; max-width: 80%; height: 100px; border-radius: 12px; font-family: poppins;
+}
+.edit-picture input{display: none;}
+.edit-picture label{width: 200px; height: 70px; background-color: #e587dc; display: flex; align-items: center; justify-content: center; border-radius: 12px; border: none;}
+.edit-picture label:hover{border: solid black 1px;}
+.edit-picture label:active{background-color: #5a1b62; color: white;}
+.edit-bg p{display: none;}
+@media(max-width:400px){
+    .account-controls button{width: 300px;}
+}
+
+.demarkation{width: 100%; height: 2px;display: flex; justify-content: center; margin: 30px 0px 30px 0px;}
+.demarkation-line{width: 70%; height: 100%; background-color: white;} 
+.creator-btns button{background-color: gray; color: white; width: 160px; height: 50px;
+    border: none; border-radius: 11px; display: flex; flex-direction: row; align-items: center; justify-content: center; gap: 3%;
+}
+.creator-btns{width: 70%; margin: auto; display: flex; flex-direction: row; align-items: center; justify-content: end; gap: 30px;}
+.creator-btns button:hover{background-color: rgb(88, 88, 88);}
+.creator-btns button:active{border: 1px white solid;}
+.upload-bg{display: flex;}
+.upload-box{
+    width: 50%; height: 500px; background-color: white; border-radius: 8px; overflow: auto;
+}
+@media(max-width:600px){.upload-box{width: 80%;}}
+.upload-song-div{width: 100%; height: 90%;
+display: flex; align-items: center; flex-direction: column; overflow: auto;
+}
+.upload-label{ width: 80%; }
+.upload-song-div input{width: 70%; margin: 10px 0px 5px 0px;}
+.song-cover-label{min-width: 150px;max-width: 150px; max-height: 150px; min-height: 150px; background-color: gray; display: flex; align-items: center; justify-content: center; border-radius: 11px; color: white; overflow: hidden;
+object-fit: cover; object-position: center;}
+#song-cover{display: none;}
+.genre-dropoption{width: 80%; display: flex; justify-content: space-between; align-items: center;}
+.genre-selection{width: 70%; display: flex;flex-wrap: wrap; gap: 10px; padding: 10px;}
+.mood,.genre{
+    height: 30px; flex: 1 1 calc(20% - 10px); /* Adjust width based on container size */
+    background-color: #e587dc; color: white; border: 1px solid #ccc; border-radius: 11px;
+    padding: 20px; box-sizing: border-box;display: flex;  align-items: center; 
+    text-align: center; justify-content: center; font-size: 13px;
+}
+.mood.selected,.genre.selected {
+    background-color: #a15099;
+    color: white; border: 1px solid #e587dc;
+}
+.upload-status-bar{
+    width: 80%; height: 4px;
+}
+
+.upload-btn{
+    width: 140px; min-height: 50px; margin: 10px 0px 10px 0px; border-radius: 8px; background-color: #f4c2ef; border: none;
+}
+.upload-btn:hover{border: 1px solid black;}
+
+
+
+
+
+
+
+
+.edit-about textarea::-webkit-scrollbar {
+    width: 8px; /* Width of the scrollbar */
+}
+
+.edit-about textarea::-webkit-scrollbar-track {
+    background: transparent; /* Background color of the track */
+    border-radius: 10px; /* Rounded corners for the track */
+}
+
+.edit-about textarea::-webkit-scrollbar-thumb {
+    background: #e587dc; /* Color of the scrollbar thumb */
+    border-radius: 10px; /* Rounded corners for the thumb */
+}
+
+.edit-about textarea::-webkit-scrollbar-thumb:hover {
+    background: #5a1b62; /* Color when hovering over the scrollbar thumb */
+}
+
+
